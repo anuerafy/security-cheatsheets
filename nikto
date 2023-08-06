@@ -9,3 +9,6 @@ nikto -host [host IP/name] -output [output_file]
 
 # To use a proxy while scanning a host 
 nikto -host [host IP/name] -useproxy [proxy address]
+
+# To use login
+nikto -host [host IP/name] -id name:pass:realm
