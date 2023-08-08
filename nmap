@@ -65,3 +65,60 @@ nmap -p 3389 --script=rdp-vuln-ms12-020.nse target
 nmap --script=vnc-info,vnc-brute,vnc-title -p 5900 target
 
 
+----
+
+more info output:
+-v, -vv, -d, -dd, --reason 
+
+-Pn / disables Ping scan
+
+-sS / scan syn_ack, but send RST(reset) immediately
+-sU / scan udp
+-sN / NULL. send empty packet. target response would be RST if port closed, and no response if open.
+-sF / FIN. send FIN(finish & close connection). target response RST if port closed, and no response if open.
+-sX / XMAS. sets FIN, PSH(push), URG(urgent) flags of tcp-header. target response RST if port closed, and no response if open.
+-sA / ACK-Scan.  target responds with RST no matter what - useful for firewalls only
+-sW / window-scan. same as -sA but checks returning TCP WIndow field of RST packet 
+
+--scanflags / custom scan. ex: URGACKPSHRSTSYNFIN (sets all flags)
+
+
+spoofing:
+-S / spoofed ip. useful only if access to machine with spoofed ip.
+-e / set network device
+-Pn / disable ping scan
+--spoof-mac / spoofing mac-address (if on same subnet)
+-D / decoy. scans with multiple ips. (-D IP,IP,IP )
+
+
+-f / fragmented packet. -f = 8bytes and less, -ff 16bytes  // --mtu = custom bytes (but always multipl. of 8)
+
+
+zombie scan: spoofing, but checks IP ID of spoofed machine to see if target responded.
+			port closed = IP ID does not increase
+nmap -sI ZOMBIE_IP MACHINE_IP
+
+
+
+-sV // checks running services. --version-intensity $LEVEL (0-9). no -sS possible
+-O // checks OS
+--traceroute // traceroute
+
+
+
+scripts
+/usr/share/nmap/scripts
+
+-sC // runs default scripts
+--script "SCRIPT_NAME" // specify script
+
+
+output
+-oN // normal file output
+-oG $FILENAME // grep, but more info than grep
+-oX // xml-format
+
+
+
+
+
